@@ -1,11 +1,11 @@
-// Pull items from the DOM
+//$ Pull items from the DOM
 const form = document.querySelector('#form')
 const username = document.querySelector('#username')
 const email = document.querySelector('#email')
 const password = document.querySelector('#password')
 const password2 = document.querySelector('#password2')
 
-// Show input error message
+//$ Show input error message
 function showError(input, message) {
   const formControl = input.parentElement
   formControl.className = 'form-control error'
@@ -13,50 +13,48 @@ function showError(input, message) {
   small.innerText = message
 }
 
-// Show input success message
+//$ Show input success message
 function showSuccess(input) {
   const formControl = input.parentElement
   formControl.className = 'form-control success'
 }
 
-// Valid email evaluator
+//$ Regex check for valid email
 function isValidEmail(email) {
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   return re.test(String(email).toLowerCase())
 }
 
-// Event Listeners
+/**
+ *
+ * @description Checks if required form fields are empty or not, displays success on non-trivial fields, displays error on empty fields
+ * @param {Array} inputArr Array contains "required" form fields
+ * */
+function checkRequired(inputArr) {
+  inputArr.forEach((input) => {
+    if (input.value.trim() === '') {
+      showError(input, `${capitalizeWord(input)} is required`)
+    } else {
+      showSuccess(input)
+    }
+  })
+}
+
+/**
+ * @description Takes in a string and uppercases the first letter only
+ * @param {string} input Form field input name
+ * @example
+ *      "string" --> "String"
+ *      "only the first character gets capitalized" --> "Only the first character gets capitalized"
+ * @returns Capitalized string
+ */
+function capitalizeWord(input) {
+  return input.id.charAt(0).toUpperCase() + input.id.slice(1)
+}
+
+//$ Event Listeners
 form.addEventListener('submit', function (e) {
   e.preventDefault()
-  console.log(username.value) //?
 
-  // Username validation controller
-  if (username.value === '') {
-    showError(username, 'Username is required')
-  } else {
-    showSuccess(username)
-  }
-
-  // Email validation controller
-  if (email.value === '') {
-    showError(email, 'Email is required')
-  } else if (!isValidEmail(email.value)) {
-    showError(email, 'Please enter a valid email')
-  } else {
-    showSuccess(email)
-  }
-
-  // Password validation controller
-  if (password.value === '') {
-    showError(password, 'Password is required')
-  } else {
-    showSuccess(password)
-  }
-
-  // Password validation controller
-  if (password2.value === '') {
-    showError(password2, 'Password is required')
-  } else {
-    showSuccess(password2)
-  }
+  checkRequired([username, email, password, password2])
 })
