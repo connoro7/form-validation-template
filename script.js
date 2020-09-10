@@ -59,7 +59,7 @@ function checkRequired(inputArr) {
 
 //$ Check input length
 /**
- * @description
+ * Checks if a string's length is greater than a min value, and less than or equal to a max value
  * @param {string} input String to be evaluated for char length
  * @param {number} minLength Minumum allowed length of input
  * @param {number} maxLength Maximum allowed length of input
