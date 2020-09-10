@@ -6,6 +6,11 @@ const password = document.querySelector('#password')
 const password2 = document.querySelector('#password2')
 
 //$ Show input error message
+/**
+ * Adds `.error` class to parent element of `input`, so that a red border is added to the form field and a specified error `message` is applied underneath the field
+ * @param {string} input Form field ID (username, email, password, etc)
+ * @param {string} message The desired error message to be displayed under the form field
+ */
 function showError(input, message) {
   const formControl = input.parentElement
   formControl.className = 'form-control error'
@@ -14,12 +19,20 @@ function showError(input, message) {
 }
 
 //$ Show input success message
+/**
+ * Adds `.success` class to parent element of `input`, so that a green border is added to the form field
+ * @param {string} input Form field ID (username, email, password, etc)
+ */
 function showSuccess(input) {
   const formControl = input.parentElement
   formControl.className = 'form-control success'
 }
 
 //$ Regex check for valid email
+/**
+ * Validates that the `input` matches the format of an email address, such as: `example@domain.tld`
+ * @param {string} input Email address
+ */
 function checkEmail(input) {
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   if (re.test(input.value.trim())) {
@@ -50,7 +63,7 @@ function checkRequired(inputArr) {
  * @param {string} input String to be evaluated for char length
  * @param {number} minLength Minumum allowed length of input
  * @param {number} maxLength Maximum allowed length of input
- * @returns
+ * @returns Error on invalid `input` length, success on valid `input` length
  */
 function checkLength(input, minLength, maxLength) {
   if (input.value.length < minLength) {
@@ -64,7 +77,7 @@ function checkLength(input, minLength, maxLength) {
 
 //$ Check for matching passwords
 /**
- * @description Validates if Password and Password Confirmation fields match
+ * Validates if `Password` and `Confirm Password` fields match
  * @param {string} input1 Password field
  * @param {string} input2 Password confirmation field
  */
